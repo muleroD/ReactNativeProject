@@ -6,26 +6,42 @@
  * @flow
  * @lint-ignore-every XPLATJSCOPYRIGHT1
  */
+import React, { Component } from 'react';
+import { Dimensions, Image, StyleSheet, Text, View, FlatList } from 'react-native';
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+const width = Dimensions.get('screen').width
 
 type Props = {};
 export default class App extends Component<Props> {
   render() {
+    const fotoList = [
+      {
+        id: 1,
+        usuario: 'richard'
+      },
+      {
+        id: 2,
+        usuario: 'albert'
+      },
+      {
+        id: 3,
+        usuario: 'fernand'
+      }
+    ]
+
+
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
+      <FlatList
+        keyExtractor={item => item.id}
+        data={fotoList}
+        renderItem={({ item }) =>
+          <View>
+            <Text style={styles.instructions}>{item.usuario}</Text>
+            <Image style={{ width, height: width }} source={require('../InstaMobile/resource/img/background.png')}></Image>
+          </View>
+        }>
+
+      </FlatList>
     );
   }
 }
@@ -33,18 +49,11 @@ export default class App extends Component<Props> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: 5,
+    marginTop: 20
   },
 });
